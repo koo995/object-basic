@@ -52,47 +52,19 @@ public class DiscountCondition {
         return false;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getPolicyId() {
         return policyId;
-    }
-
-    public void setPolicyId(Long policyId) {
-        this.policyId = policyId;
     }
 
     private boolean isPeriodCondition() {
         return ConditionType.PERIOD_CONDITION.equals(conditionType);
     }
 
-    public boolean isSequenceCondition() {
+    private boolean isSequenceCondition() {
         return ConditionType.SEQUENCE_CONDITION.equals(conditionType);
     }
 
-    public void setConditionType(ConditionType conditionType) {
-        this.conditionType = conditionType;
-    }
-
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public void setInterval(TimeInterval interval) {
-        this.interval = interval;
-    }
-
-    public void setSequence(Integer sequence) {
-        this.sequence = sequence;
-    }
-
-    public boolean isCombinedCondition() {
+    private boolean isCombinedCondition() {
         return ConditionType.COMBINE_CONDITION.equals(conditionType);
     }
 }
