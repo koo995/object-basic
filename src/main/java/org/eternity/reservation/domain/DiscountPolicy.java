@@ -2,6 +2,7 @@ package org.eternity.reservation.domain;
 
 import org.eternity.generic.Money;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiscountPolicy {
@@ -18,19 +19,20 @@ public class DiscountPolicy {
     }
 
     public DiscountPolicy(Long movieId, PolicyType policyType, Money amount, Double percent) {
-        this(null, movieId, policyType, amount, percent);
+        this(null, movieId, policyType, amount, percent, new ArrayList<>());
     }
 
-    public DiscountPolicy(Long id, Long movieId, PolicyType policyType, Money amount, Double percent) {
+    public DiscountPolicy(Long id, Long movieId, PolicyType policyType, Money amount, Double percent, List<DiscountCondition> conditions) {
         this.id = id;
         this.movieId = movieId;
         this.policyType = policyType;
         this.amount = amount;
         this.percent = percent;
+        this.conditions = conditions;
     }
 
     public boolean findDiscountCondition(Screening screening) {
-        for(DiscountCondition condition : conditions) {
+        for(DiscountCondition condition : this.conditions) {
             if(condition.isSatisfiedBy(screening)) {
                 return true;
             }
@@ -53,16 +55,8 @@ public class DiscountPolicy {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getMovieId() {
         return movieId;
-    }
-
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
     }
 
     private boolean isAmountPolicy() {
@@ -71,21 +65,5 @@ public class DiscountPolicy {
 
     private boolean isPercentPolicy() {
         return PolicyType.PERCENT_POLICY.equals(policyType);
-    }
-
-    public PolicyType getPolicyType() {
-        return policyType;
-    }
-
-    public void setPolicyType(PolicyType policyType) {
-        this.policyType = policyType;
-    }
-
-    public void setAmount(Money amount) {
-        this.amount = amount;
-    }
-
-    public void setPercent(Double percent) {
-        this.percent = percent;
     }
 }
