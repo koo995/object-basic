@@ -26,7 +26,6 @@ public class Main {
             screeningDAO,
             movieDAO,
             discountPolicyDAO,
-            discountConditionDAO,
             reservationDAO);
 
 
