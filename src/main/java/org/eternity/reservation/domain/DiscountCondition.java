@@ -33,6 +33,25 @@ public class DiscountCondition {
         this.sequence = sequence;
     }
 
+    public boolean isSatisfiedBy(Screening screening) {
+        if (isPeriodCondition()) {
+            if (screening.isPlayedIn(dayOfWeek, interval.getStartTime(), interval.getEndTime())) {
+                return true;
+            }
+        } else if (isSequenceCondition()){
+            if (sequence.equals(screening.getSequence())) {
+                return true;
+            }
+        } if (isCombinedCondition()) {
+            if (screening.isPlayedIn(dayOfWeek, interval.getStartTime(), interval.getEndTime()) &&
+                    sequence.equals(screening.getSequence())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public Long getId() {
         return id;
     }
@@ -49,7 +68,7 @@ public class DiscountCondition {
         this.policyId = policyId;
     }
 
-    public boolean isPeriodCondition() {
+    private boolean isPeriodCondition() {
         return ConditionType.PERIOD_CONDITION.equals(conditionType);
     }
 
@@ -57,39 +76,23 @@ public class DiscountCondition {
         return ConditionType.SEQUENCE_CONDITION.equals(conditionType);
     }
 
-    public ConditionType getConditionType() {
-        return conditionType;
-    }
-
     public void setConditionType(ConditionType conditionType) {
         this.conditionType = conditionType;
-    }
-
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
     }
 
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public TimeInterval getInterval() {
-        return interval;
-    }
-
     public void setInterval(TimeInterval interval) {
         this.interval = interval;
-    }
-
-    public Integer getSequence() {
-        return sequence;
     }
 
     public void setSequence(Integer sequence) {
         this.sequence = sequence;
     }
 
-    public boolean isCombineCondition() {
+    public boolean isCombinedCondition() {
         return ConditionType.COMBINE_CONDITION.equals(conditionType);
     }
 }
