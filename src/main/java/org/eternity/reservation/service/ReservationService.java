@@ -58,8 +58,15 @@ public class ReservationService {
                                          condition.getEndTime())) {
                     return condition;
                 }
-            } else {
+            } else if (condition.isSequenceCondition()) {
                 if (condition.getSequence().equals(screening.getSequence())) {
+                    return condition;
+                }
+            } else if (condition.isCombineCondition()) {
+                if ((condition.getSequence().equals(screening.getSequence())) &&
+                    (screening.isPlayedIn(condition.getDayOfWeek(),
+                                          condition.getStartTime(),
+                                          condition.getEndTime()))) {
                     return condition;
                 }
             }

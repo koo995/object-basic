@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 public class DiscountCondition {
-    public enum ConditionType { PERIOD_CONDITION, SEQUENCE_CONDITION }
+    public enum ConditionType { PERIOD_CONDITION, SEQUENCE_CONDITION, COMBINE_CONDITION}
 
     private Long id;
     private Long policyId;
@@ -93,5 +93,9 @@ public class DiscountCondition {
 
     public void setSequence(Integer sequence) {
         this.sequence = sequence;
+    }
+
+    public boolean isCombineCondition() {
+        return ConditionType.COMBINE_CONDITION.equals(conditionType);
     }
 }
